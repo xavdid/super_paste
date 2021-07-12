@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# uses https://gist.github.com/deanishe/b16f018119ef3fe951af
+
+FILE_LOC=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+
+workflow-build "$FILE_LOC/../src" -o "$FILE_LOC/.." $@

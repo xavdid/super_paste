@@ -130,7 +130,8 @@ def _process_url(url: str) -> Tuple[str, str]:
 
         return link_titled(f"{user}/{link_with_subteam}")
 
-    return link_titled("LINK")
+    # default to pulling the root domain out, if we can
+    return link_titled(domain)
 
 
 def main(input_: str) -> str:

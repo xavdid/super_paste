@@ -51,7 +51,7 @@
 	<key>createdby</key>
 	<string>David Brownman</string>
 	<key>description</key>
-	<string>Easily paste links to external resources in markdown</string>
+	<string>Easily paste nicely-formatted links as markdown</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
@@ -107,6 +107,8 @@
 				<false/>
 				<key>escaping</key>
 				<integer>68</integer>
+				<key>script</key>
+				<string></string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -140,7 +142,9 @@
 		</dict>
 	</array>
 	<key>readme</key>
-	<string>Super paste can paste many URLs as nicely-formatted markdown urls. Works especially well w/ JIRA and Github links!</string>
+	<string>Super paste can paste many URLs as nicely-formatted markdown urls. Works especially well w/ JIRA and Github links!
+
+See [the docs](https://github.com/xavdid/super_paste#configuration) for configuring paste behavior for non-public links.</string>
 	<key>uidata</key>
 	<dict>
 		<key>1B522C3E-D8D4-400E-B30B-B07F7E24E33C</key>
@@ -179,6 +183,6 @@
 	<key>version</key>
 	<string>2.0.0</string>
 	<key>webaddress</key>
-	<string>https://xavd.id</string>
+	<string>https://github.com/xavdid/super_paste</string>
 </dict>
 </plist>

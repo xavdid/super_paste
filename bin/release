@@ -1,0 +1,13 @@
+#!/usr/bin/env bash -e
+
+FILE_LOC=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+
+# clean up previous builds
+# don't put quotes around the * or it won't work
+rm -f $FILE_LOC/../*.alfredworkflow
+
+VERSION="$(defaults read $FILE_LOC/../src/info.plist version)"
+
+$FILE_LOC/build # create zip in root
+
+gh release create $VERSION $FILE_LOC/../*.alfredworkflow -F $FILE_LOC/../CHANGELOG.md

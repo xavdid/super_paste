@@ -188,6 +188,14 @@ class ProcessUrlTest(TestCase):
             with self.assertRaises(ValueError):
                 main_func(test)
 
+    def test_no_match(self):
+        tests = [
+            ("https://neat.com/cool/whoa?asdf=asdf", "neat.com"),
+            ("https://blah.co.uk/cool/whoa?asdf=asdf", "blah.co.uk"),
+            ("https://startup.io/cool/whoa?asdf=asdf", "startup.io"),
+        ]
+        self.default_test_run(tests)
+
 
 class MainTestCase(TestCase):
     def test_main_with_urls(self):
@@ -268,7 +276,7 @@ class MainTestCase(TestCase):
         mocked_custom_text,
         mocked_process_text,
     ):
-        self.assertEqual(main_func("https://neat.com"), "[LINK](https://neat.com)")
+        self.assertEqual(main_func("https://neat.com"), "[neat.com](https://neat.com)")
 
         self.assertTrue(mocked_custom_url.called)
         self.assertTrue(mocked_process_url.called)

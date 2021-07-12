@@ -17,7 +17,7 @@ from typing import Optional, Tuple
 
 # The full url (without the trailing slash) of a Jira instance
 # it'll be slotted into urls like "{JIRA_URL}/browse/ABC-123"
-# see this list for urls where your jira instance might live:
+# see this list for urls where your Jira instance might live:
 # https://confluence.atlassian.com/jirakb/how-to-find-your-site-url-to-set-up-the-jira-data-center-and-server-mobile-app-954244798.html
 JIRA_URL = "https://test.atlassian.net"
 
