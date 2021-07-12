@@ -89,6 +89,47 @@ class ProcessUrlTest(TestCase):
                 "commit",
             ),
             ("https://github.com/xavdid/typed-install/pulls", "github"),
+            # folder, trailing slash
+            (
+                "https://github.com/zapier/zapier-platform/blob/master/packages/core/src/checks/",
+                "zapier/zapier-platform | /checks",
+            ),
+            # file w/o line
+            (
+                "https://github.com/zapier/zapier-platform/blob/master/packages/core/src/checks/trigger-has-id.js",
+                "zapier/zapier-platform | trigger-has-id.js",
+            ),
+            # folder, tied to commit
+            (
+                "https://github.com/zapier/zapier-platform/blob/50ccdf5747468005f2ec48d2a33c0958528190f3/packages/core/src/checks",
+                "zapier/zapier-platform | /checks",
+            ),
+            # folder, trailing slash, tied to commit
+            (
+                "https://github.com/zapier/zapier-platform/blob/50ccdf5747468005f2ec48d2a33c0958528190f3/packages/core/src/checks/",
+                "zapier/zapier-platform | /checks",
+            ),
+            # file w/o line, tied to commit
+            (
+                "https://github.com/zapier/zapier-platform/blob/50ccdf5747468005f2ec48d2a33c0958528190f3/packages/core/src/checks/trigger-has-id.js",
+                "zapier/zapier-platform | trigger-has-id.js",
+            ),
+            # file w/ line, tied to commit
+            (
+                "https://github.com/zapier/zapier-platform/blob/50ccdf5747468005f2ec48d2a33c0958528190f3/packages/core/src/checks/trigger-has-id.js#L16",
+                "zapier/zapier-platform | trigger-has-id.js#L16",
+            ),
+            # file w/ lines, tied to commit
+            (
+                "https://github.com/zapier/zapier-platform/blob/50ccdf5747468005f2ec48d2a33c0958528190f3/packages/core/src/checks/trigger-has-id.js#L16-18",
+                "zapier/zapier-platform | trigger-has-id.js#L16-18",
+            ),
+        ]
+        self.default_test_run(tests)
+
+    def test_gists(self):
+        tests = [
+            ("https://gist.github.com/xavdid/bb2ae92d7e13aa76738e0484a062ee5e", "gist")
         ]
         self.default_test_run(tests)
 

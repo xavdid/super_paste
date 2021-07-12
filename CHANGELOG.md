@@ -1,3 +1,10 @@
+## 2.0.1
+
+_released `TBD`_
+
+- improved github specificity
+- added `gist`
+
 ## 2.0.0
 
 _released `2021-07-12`_

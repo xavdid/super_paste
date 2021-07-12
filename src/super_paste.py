@@ -92,7 +92,32 @@ def _process_url(url: str) -> Tuple[str, str]:
         if "/commit/" in url:
             return link_titled("commit")
 
+        if "/blob/" in url:
+            # link to a specific folder/file; maybe with a line number
+            # https://github.com/zapier/zapier-platform/blob/asdf.../packages/core/src/checks/trigger-has-id.js#L16
+            path_parts = parsed_url.path.split("/")
+            user, repo = path_parts[1:3]
+            last_part = path_parts[-1]
+            # trailing slash in directory
+            if last_part == "":
+                last_part = path_parts[-2]
+
+            res = [f"{user}/{repo} | "]
+
+            if "." not in last_part:
+                # directory!
+                res.append("/")
+            res.append(last_part)
+
+            if parsed_url.fragment:
+                res.append(f"#{parsed_url.fragment}")
+
+            return link_titled("".join(res))
+
         return link_titled("github")
+
+    if domain == "gist.github.com":
+        return link_titled("gist")
 
     # should handle hosted
     if "gitlab.com" in domain:
