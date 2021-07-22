@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash -e
 
 # uses https://gist.github.com/deanishe/b16f018119ef3fe951af
 

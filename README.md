@@ -44,3 +44,13 @@ Because `Super Paste` is a Python script under the hood, configuration also requ
 4. Open the `config.py` file in an editor of your choice.
 5. Read through that file - it tells you exactly how to alter it and what the functions expect you to return.
 6. :exclamation: **IMPORTANT**: after saving your edits to the file, copy the entire thing and save it somewhere else (Dropbox, a [Gist](https://gist.github.com), etc). Every time you update the workflow, that file gets overwritten with the default. Saving the edited `config.py` file means you'll be able to easily repeat these steps to restore your configuration after updates.
+
+## Contributing
+
+### Development & Releases
+
+1. Update the `version` key in the `plist` (towards the bottom)
+2. Update code w/ changes
+3. Once done, update the `CHANGELOG.md`
+4. run `./bin/release`
+5. push!
