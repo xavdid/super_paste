@@ -181,7 +181,7 @@ See [the docs](https://github.com/xavdid/super_paste#configuration) for configur
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>2.0.0</string>
+	<string>2.1.0</string>
 	<key>webaddress</key>
 	<string>https://github.com/xavdid/super_paste</string>
 </dict>

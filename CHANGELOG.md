@@ -1,6 +1,6 @@
 ## 2.0.1
 
-_released `TBD`_
+_released `2020-07-21`_
 
 - improved github specificity
 - added `gist`
