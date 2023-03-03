@@ -30,7 +30,7 @@ Pasting a link from the following sites results in "smart" behavior:
 
 - [Slack](https://slack.com/)
 - [Zappy](https://zapier.com/zappy)
-- [GitHub](https://github.com)
+- [GitHub](https://github.com) (and gists)
 - [GitLab](https://gitlab.com)
 - [Jira](https://www.atlassian.com/software/jira)
 
@@ -43,7 +43,7 @@ Because `Super Paste` is a Python script under the hood, configuration also requ
 3. Right-click on the workflow and click `Open in Finder` ([screenshot](https://cdn.zappy.app/dae5e34c023c15eeb18b983e5780ef89.png))
 4. Open the `config.py` file in an editor of your choice.
 5. Read through that file - it tells you exactly how to alter it and what the functions expect you to return.
-6. :exclamation: **IMPORTANT**: after saving your edits to the file, copy the entire thing and save it somewhere else (Dropbox, a [Gist](https://gist.github.com), etc). Every time you update the workflow, that file gets overwritten with the default. Saving the edited `config.py` file means you'll be able to easily repeat these steps to restore your configuration after updates.
+6. :exclamation: **IMPORTANT**: after saving your edits to the file, copy the entire thing and save it somewhere else (Dropbox, a [Gist](https://gist.github.com), etc). Every time you re-install the workflow, that file gets overwritten with the default. Saving the edited `config.py` file means you'll be able to easily repeat these steps to restore your configuration after updates.
 
 ## Contributing
 
