@@ -18,13 +18,18 @@ def find_issue_tag(text: str) -> Optional[str]:
     Looks for jira tags in text. They're a few capital letters, followed by a
     dash and a number.
     """
-    match = re.search(r"[A-Z]{2,}-\d+", text)
-    if match:
+    if match := re.search(r"[A-Z_]{2,}-\d+", text):
         return match.group()
     return None
 
 
-def markdown_link(link_text, href):
+def find_go_link(text: str) -> Optional[str]:
+    if match := re.search(r"^go/[\w_-]+$", text):
+        return match.group()
+    return None
+
+
+def markdown_link(link_text: str, href: str):
     return f"[{link_text}]({href})"
 
 
@@ -33,12 +38,13 @@ def _process_text(text: str) -> str:
     Function called for non-url strings. Primary used to pull issue tags out
     of text. If it doesn't find a tag, it returns the text, unaltered.
     """
-    maybe_jira = find_issue_tag(text)
-    if maybe_jira:
-        return markdown_link(maybe_jira, f"{JIRA_URL}/browse/{maybe_jira}")
+    if jira := find_issue_tag(text):
+        return markdown_link(jira, f"{JIRA_URL}/browse/{jira}")
 
-    else:
-        return text
+    if go_link := find_go_link(text):
+        return markdown_link(go_link, f"http://{go_link}")
+
+    return text
 
 
 def _process_url(url: str) -> Tuple[str, str]:

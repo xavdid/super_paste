@@ -1,6 +1,6 @@
 #!/usr/bin/env bash -e
 
-# uses https://gist.github.com/deanishe/b16f018119ef3fe951af
+# uses https://gist.github.com/deanishe/b16f018119ef3fe951af, which is in my dotfiles
 
 FILE_LOC=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 
