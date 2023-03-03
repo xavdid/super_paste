@@ -7,10 +7,10 @@ from urllib.parse import urlparse
 
 try:
     # deployed setup, everything is top-level
-    from config import JIRA_URL, custom_text, custom_url
+    from config import GHE_URL, JIRA_URL, custom_text, custom_url
 except ImportError:
     # testing setup, everything in a subdir
-    from .config import JIRA_URL, custom_text, custom_url
+    from .config import GHE_URL, JIRA_URL, custom_text, custom_url
 
 
 def find_issue_tag(text: str) -> Optional[str]:
@@ -88,7 +88,11 @@ def _process_url(url: str) -> Tuple[str, str]:
 
         return link_titled("JIRA")
 
-    if domain == "github.com":
+    if domain == "github.com" or url.startswith(GHE_URL):
+        # special case for GHE because those gists aren't on a subdomain
+        if url.startswith(f"{GHE_URL}/gist/"):
+            return link_titled("gist")
+
         if "/pull/" in url or "/issues/" in url:
             # pull out the repo name nicely
             _, _, _, user, repo, _, number = url.split("/")

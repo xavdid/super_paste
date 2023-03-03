@@ -3,9 +3,10 @@ This file holds custom configuration for an otherwise generic super-paste
 
 At this time, it recognizes the following variables:
 
-* JIRA_URL
-* process_url
-* process_text
+- JIRA_URL
+- GHE_URL
+- process_url
+- process_text
 
 See their docs below for more info about how you can customize super_paste behavior.
 
@@ -20,6 +21,9 @@ from typing import Optional, Tuple
 # see this list for urls where your Jira instance might live:
 # https://confluence.atlassian.com/jirakb/how-to-find-your-site-url-to-set-up-the-jira-data-center-and-server-mobile-app-954244798.html
 JIRA_URL = "https://test.atlassian.net"
+
+# If you use a hosted GitHub enterprise server, add its homepage here:
+GHE_URL = "https://hosted.git.test.com"
 
 
 def custom_url(url: str) -> Optional[Tuple[str, str]]:

@@ -5,6 +5,58 @@ import pytest
 from src.super_paste import _process_text, _process_url, find_go_link, find_issue_tag
 from src.super_paste import main as main_func
 
+github_tests = [
+    (
+        "https://github.com/xavdid/typed-install/issues/1",
+        "xavdid/typed-install#1",
+    ),
+    (
+        "https://github.com/xavdid/typed-install/pull/3",
+        "xavdid/typed-install#3",
+    ),
+    ("https://github.com/xavdid/typed-install", "github"),
+    (
+        "https://github.com/xavdid/typed-install/commit/c611f9b5c218814eff6c5631a585283bc039bab9",
+        "commit",
+    ),
+    ("https://github.com/xavdid/typed-install/pulls", "github"),
+    # folder, trailing slash
+    (
+        "https://github.com/zapier/zapier-platform/blob/master/packages/core/src/checks/",
+        "zapier/zapier-platform | /checks",
+    ),
+    # file w/o line
+    (
+        "https://github.com/zapier/zapier-platform/blob/master/packages/core/src/checks/trigger-has-id.js",
+        "zapier/zapier-platform | trigger-has-id.js",
+    ),
+    # folder, tied to commit
+    (
+        "https://github.com/zapier/zapier-platform/blob/50ccdf5747468005f2ec48d2a33c0958528190f3/packages/core/src/checks",
+        "zapier/zapier-platform | /checks",
+    ),
+    # folder, trailing slash, tied to commit
+    (
+        "https://github.com/zapier/zapier-platform/blob/50ccdf5747468005f2ec48d2a33c0958528190f3/packages/core/src/checks/",
+        "zapier/zapier-platform | /checks",
+    ),
+    # file w/o line, tied to commit
+    (
+        "https://github.com/zapier/zapier-platform/blob/50ccdf5747468005f2ec48d2a33c0958528190f3/packages/core/src/checks/trigger-has-id.js",
+        "zapier/zapier-platform | trigger-has-id.js",
+    ),
+    # file w/ line, tied to commit
+    (
+        "https://github.com/zapier/zapier-platform/blob/50ccdf5747468005f2ec48d2a33c0958528190f3/packages/core/src/checks/trigger-has-id.js#L16",
+        "zapier/zapier-platform | trigger-has-id.js#L16",
+    ),
+    # file w/ lines, tied to commit
+    (
+        "https://github.com/zapier/zapier-platform/blob/50ccdf5747468005f2ec48d2a33c0958528190f3/packages/core/src/checks/trigger-has-id.js#L16-18",
+        "zapier/zapier-platform | trigger-has-id.js#L16-18",
+    ),
+]
+
 
 @pytest.mark.parametrize(
     ["text", "expected"],
@@ -100,58 +152,12 @@ def tag_param(tag, tests):
                 )
             ],
         ),
+        *tag_param("github", github_tests),
         *tag_param(
-            "github",
+            "hosted_github",
             [
-                (
-                    "https://github.com/xavdid/typed-install/issues/1",
-                    "xavdid/typed-install#1",
-                ),
-                (
-                    "https://github.com/xavdid/typed-install/pull/3",
-                    "xavdid/typed-install#3",
-                ),
-                ("https://github.com/xavdid/typed-install", "github"),
-                (
-                    "https://github.com/xavdid/typed-install/commit/c611f9b5c218814eff6c5631a585283bc039bab9",
-                    "commit",
-                ),
-                ("https://github.com/xavdid/typed-install/pulls", "github"),
-                # folder, trailing slash
-                (
-                    "https://github.com/zapier/zapier-platform/blob/master/packages/core/src/checks/",
-                    "zapier/zapier-platform | /checks",
-                ),
-                # file w/o line
-                (
-                    "https://github.com/zapier/zapier-platform/blob/master/packages/core/src/checks/trigger-has-id.js",
-                    "zapier/zapier-platform | trigger-has-id.js",
-                ),
-                # folder, tied to commit
-                (
-                    "https://github.com/zapier/zapier-platform/blob/50ccdf5747468005f2ec48d2a33c0958528190f3/packages/core/src/checks",
-                    "zapier/zapier-platform | /checks",
-                ),
-                # folder, trailing slash, tied to commit
-                (
-                    "https://github.com/zapier/zapier-platform/blob/50ccdf5747468005f2ec48d2a33c0958528190f3/packages/core/src/checks/",
-                    "zapier/zapier-platform | /checks",
-                ),
-                # file w/o line, tied to commit
-                (
-                    "https://github.com/zapier/zapier-platform/blob/50ccdf5747468005f2ec48d2a33c0958528190f3/packages/core/src/checks/trigger-has-id.js",
-                    "zapier/zapier-platform | trigger-has-id.js",
-                ),
-                # file w/ line, tied to commit
-                (
-                    "https://github.com/zapier/zapier-platform/blob/50ccdf5747468005f2ec48d2a33c0958528190f3/packages/core/src/checks/trigger-has-id.js#L16",
-                    "zapier/zapier-platform | trigger-has-id.js#L16",
-                ),
-                # file w/ lines, tied to commit
-                (
-                    "https://github.com/zapier/zapier-platform/blob/50ccdf5747468005f2ec48d2a33c0958528190f3/packages/core/src/checks/trigger-has-id.js#L16-18",
-                    "zapier/zapier-platform | trigger-has-id.js#L16-18",
-                ),
+                (url.replace("https://github.com", "https://hosted.git.test.com"), tag)
+                for url, tag in github_tests
             ],
         ),
         *tag_param(
@@ -160,7 +166,12 @@ def tag_param(tag, tests):
                 (
                     "https://gist.github.com/xavdid/bb2ae92d7e13aa76738e0484a062ee5e",
                     "gist",
-                )
+                ),
+                # hosted gists have a slightly different path
+                (
+                    "https://hosted.git.test.com/gist/xavdid/bb2ae92d7e13aa76738e0484a062ee5e",
+                    "gist",
+                ),
             ],
         ),
         *tag_param(
@@ -255,6 +266,42 @@ def test_hosted_jira(text, expected):
     ],
 )
 def test_custom_jira(text, expected):
+    assert _process_url(text) == expected
+
+
+@patch("src.super_paste.GHE_URL", "https://asdf.com")
+@pytest.mark.parametrize(
+    ["text", "expected"],
+    [
+        (
+            "https://asdf.com/xavdid/typed-install/pull/3",
+            ("xavdid/typed-install#3", "https://asdf.com/xavdid/typed-install/pull/3"),
+        ),
+        (
+            "https://asdf.com/zapier/zapier-platform/blob/master/packages/core/src/checks/",
+            (
+                "zapier/zapier-platform | /checks",
+                "https://asdf.com/zapier/zapier-platform/blob/master/packages/core/src/checks/",
+            ),
+        ),
+        # normal gh still works, even with a custom url
+        (
+            "https://github.com/xavdid/typed-install/pull/3",
+            (
+                "xavdid/typed-install#3",
+                "https://github.com/xavdid/typed-install/pull/3",
+            ),
+        ),
+        (
+            "https://github.com/zapier/zapier-platform/blob/master/packages/core/src/checks/",
+            (
+                "zapier/zapier-platform | /checks",
+                "https://github.com/zapier/zapier-platform/blob/master/packages/core/src/checks/",
+            ),
+        ),
+    ],
+)
+def test_custom_ghe(text, expected):
     assert _process_url(text) == expected
 
 
